@@ -1,12 +1,22 @@
 package com.example.simplecarlist;
 
-import java.io.File;
+import android.content.res.AssetManager;
 
-public class Car {
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Car{
     String firstName;
     String lastName;
     String model;
     String brand;
+    List<Car> cars = new ArrayList<>();
 
     public Car(String firstName, String lastName, String brand, String model) {
         this.firstName = firstName;
@@ -29,13 +39,5 @@ public class Car {
 
     public String getBrand() {
         return brand;
-    }
-
-    public void readCsv(File file){
-
-    }
-
-    public void writeCsv(File file){
-
     }
 }
