@@ -3,8 +3,10 @@ package com.example.simplecarlist;
 import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -17,31 +19,38 @@ import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    MyAdapter myAdapter;
     File file = new File("cars.csv");
     ListView listView;
     List<Car> cars = new ArrayList<>();
-    List<String> firstNames = new ArrayList<>();
-    List<String> lastNames = new ArrayList<>();
     List<String> brands = new ArrayList<>();
-    List<String> models = new ArrayList<>();
     List<String> carStrings = new ArrayList<>();
+    Spinner hersteller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        brands.add(" ");
         listView = (ListView) findViewById(R.id.listView);
+        hersteller = (Spinner) findViewById(R.id.hersteller);
+
         readAssets();
         for (int i = 0; i < cars.size(); i++) {
-            carStrings.add(cars.get(i).getFirstName() + cars.get(i).getLastName() + cars.get(i).getBrand() + cars.get(i).getModel());
+            brands.add(cars.get(i).getBrand());
+            carStrings.add(cars.get(i).getFirstName()); // + cars.get(i).getLastName() + cars.get(i).getBrand() + cars.get(i).getModel());
         }
 
-        final MyAdapter myAdapter = new MyAdapter(this, R.layout.list_view_layout, cars);
+        myAdapter = new MyAdapter(this, R.layout.list_view_layout, cars);
         listView.setAdapter(myAdapter);
 
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, brands);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        hersteller.setAdapter(arrayAdapter);
+        filterBySpinner();
+        
         SearchView searchView = (SearchView) findViewById(R.id.searchView);
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -95,6 +104,17 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void filterBySpinner(){
+        String text = hersteller.getSelectedItem().toString();
+
+        if(text.equals(" ")){
+        }
+
+        else{
+            myAdapter.getFilter().filter(text);
         }
     }
 }
