@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Car{
@@ -39,5 +38,10 @@ public class Car{
 
     public String getBrand() {
         return brand;
+    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + " " + model + " " + brand;
     }
 }

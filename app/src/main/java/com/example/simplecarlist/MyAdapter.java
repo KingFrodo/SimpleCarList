@@ -36,4 +36,42 @@ public class MyAdapter extends ArrayAdapter<Car> {
         ((TextView) listItem.findViewById(R.id.model)).setText(car.getModel());
         return listItem;
     }
+
+//    @Override
+//    public Filter getFilter(){
+//        return new Filter(){
+//
+//            @Override
+//            protected FilterResults performFiltering(CharSequence constraint) {
+//                constraint = constraint.toString().toLowerCase();
+//                FilterResults result = new FilterResults();
+//
+//                if (constraint != null && constraint.toString().length() > 0) {
+//                    List<String> founded = new ArrayList<String>();
+//                    for(Car item: cars){
+//                        if(item.toString().toLowerCase().contains(constraint)){
+//                            founded.add(item.toString());
+//                        }
+//                    }
+//
+//                    result.values = founded;
+//                    result.count = founded.size();
+//                }else {
+//                    result.values = cars;
+//                    result.count = cars.size();
+//                }
+//                return result;
+//            }
+//
+//            @Override
+//            protected void publishResults(CharSequence constraint, FilterResults results) {
+//                clear();
+//                for (String item : (List<String>) results.values) {
+//                    add(item);
+//                }
+//                notifyDataSetChanged();
+//            }
+//
+//        };
+//    }
 }
